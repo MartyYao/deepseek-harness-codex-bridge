@@ -1,0 +1,13 @@
+# dsh-codex-bridge bundle patch: one plugin row over the profile root.
+# The row is addressed by id from later user patches; last write per row wins.
+- insert:
+    - id: dsh-codex-bridge
+      name: dsh-codex-bridge
+      config:
+        appServerUrl: ws://127.0.0.1:4500
+        defaultModel: gpt-5.6-terra
+        sandbox: read-only
+        approvalPolicy: never
+        # dynamicTools：暴露给 Codex 的 dsh 工具白名单（dsh_ 前缀），空数组 = 关闭。
+        # 2026-08-16 用户决定开启：GPT 经桥接可调用这些 dsh 工具（approvalPolicy 为 never，无人工审批）。
+        dynamicTools: [bash, read, write, edit, glob, grep, web_search, job_kill, job_list, job_output, todo_write, skill, subagent, subagent_fork, workflow]
